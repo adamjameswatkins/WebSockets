@@ -13,7 +13,12 @@
         ws.addEventListener('open', function (event) {
             console.log('Connected to WebSocket server');
 
-            ws.send('Hello from the client!');
+            ws.send(JSON.stringify({
+                type: 'message',
+                data: 'Hello, WebSocket server!'
+            }));
+
+            ws.send('Hello');
         });
 
         ws.addEventListener('message', function (event) {

@@ -6,9 +6,14 @@ wss.on('connection', ws => {
     console.log('Client connected');
 
     ws.on('message', message => {
-        console.log(`Received message => ${message}`);
+        try {
+            const data = JSON.parse(message);
 
-        ws.send(`Hello, you sent -> ${message}`);
+            ws.send(`Hello, you sent -> ${data.data}`);
+        }
+        catch (error) {
+            ws.send('Invalid JSON');
+        }
     });
 
     ws.on('close', () => {
